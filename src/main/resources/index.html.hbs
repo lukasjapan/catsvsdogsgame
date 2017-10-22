@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
+    </head>
+    <body>
+        <h1>The Cats 🐱 vs 🐶 Dogs VGG16 game!</h1>
+
+        <h2>Submit an Image</h2>
+
+        <form method="post" action="entry" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td><input name="name" value="Anonymous" /></td>
+                </tr>
+                <tr>
+                    <td>Image</td>
+                    <td><input name="image" type="file"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button>Submit</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <h2>Score Board</h2>
+
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Model</th>
+                <th>Score</th>
+                <th>VGG16 Labels</th>
+            </tr>
+            {{#each scoreBoard.entries}}
+                <tr>
+                    <td>{{ counter @index}}</td>
+                    <td>{{ name }}</td>
+                    <td>{{ score.first }}</td>
+                    <td>{{ percent score.second }}</td>
+                    <td>
+                        <table>
+                            {{#each others }}
+                                <tr>
+                                    <td>{{ first.en }} ({{ first.ja }}):</td>
+                                    <td>{{ percent second }}</td>
+                                </tr>
+                            {{/each}}
+                        </table>
+                    </td>
+                </tr>
+            {{/each}}
+        </table>
+    </body>
+</html>

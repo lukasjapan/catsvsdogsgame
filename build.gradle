@@ -1,0 +1,65 @@
+group 'de.cvguy.fastai'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath group: 'org.jetbrains.kotlin', name: 'kotlin-gradle-plugin', version: '1.1.4'
+    }
+}
+
+repositories {
+    jcenter()
+    maven { url  "http://dl.bintray.com/kotlin/ktor" }
+}
+
+apply plugin: 'java'
+apply plugin: 'kotlin'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
+
+dependencies {
+    // kotlin
+    compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jre8', version: '1.1.4'
+    compile group: 'org.jetbrains.kotlin', name: 'kotlin-reflect',     version: '1.1.4'
+
+    compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-kotlin', version: '2.9.0'
+
+    // deeplearning4j
+    compile group: 'org.deeplearning4j', name: 'deeplearning4j-core',    version: '0.9.1'
+    compile group: 'org.deeplearning4j', name: 'deeplearning4j-zoo',     version: '0.9.1'
+    compile group: 'org.deeplearning4j', name: 'deeplearning4j-ui_2.10', version: '0.9.1'
+    compile group: 'org.nd4j',           name: 'nd4j-native-platform',   version: '0.9.1'
+
+    // de.cvguy.fastai.catsvsdogs.web
+    compile group: 'org.jetbrains.ktor', name: 'ktor-netty', version: '0.4.0'
+    compile group: 'com.github.jknack', name: 'handlebars', version: '4.0.6'
+
+    // logging
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
+    compile group: 'org.slf4j', name: 'slf4j-api',    version: '1.7.25'
+
+    // twitter
+    compile group: 'org.twitter4j', name: 'twitter4j-core',   version: '4.0.6'
+    compile group: 'org.twitter4j', name: 'twitter4j-stream', version: '4.0.6'
+
+    // tests
+    testCompile "junit:junit:4.12"
+}
