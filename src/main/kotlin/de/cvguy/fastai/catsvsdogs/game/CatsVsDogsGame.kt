@@ -23,6 +23,8 @@ class CatsVsDogsGame {
 
         scoreBoard.addEntry(entry)
 
+        println(entry)
+
         return entry
     }
 }

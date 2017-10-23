@@ -44,24 +44,22 @@ class TwitterGameClient(
             status ?: return
 
             val profileURL       = URL(status.user.originalProfileImageURL)
-            val attachedImageURL = status.mediaEntities.find { it.type == "photo" }?.let { URL(it.mediaURL) } ?: return
+            // val attachedImageURL = status.mediaEntities.find { it.type == "photo" }?.let { URL(it.mediaURL) } ?: return
 
             // Submit to game
-            val entry = game.addEntry(status.user.screenName, attachedImageURL.openStream())
+            val entry = game.addEntry(status.user.screenName, profileURL.openStream())
             val rank = game.scoreBoard.getRank(entry)
 
-            // For status tweet
-            val profileLabels = game.vgg16.topVGG16LabelsOfImage(profileURL.openStream())
+            // val profileLabels = game.vgg16.topVGG16LabelsOfImage(profileURL.openStream())
 
-            val labelString = profileLabels.joinToString("\n") {
+            val labelString = entry.others.joinToString("\n") {
                 "${it.first.en}  ${it.first.ja} ${"%.2f".format(it.second * 100)}%"
             }
 
-            tweet("""#m3kt 犬vs猫
-@${status.user.screenName}の結果:
+            tweet("""#m3kt 犬vs猫 @${status.user.screenName}のスコア:
 ${rank?:"-"}位 ${entry.score.first} ${"%.2f".format(entry.score.second * 100)}%
 
-プロフィール診断(VGG16)：
+VGG16プロフィール診断：
 ${labelString}""")
         }
 
@@ -78,16 +76,16 @@ ${labelString}""")
 
     fun tweet(text: String) {
         var trimmed = text
+        // is there a function for this in twitter4j? is this safe with japanese input?
         while(CharacterUtil.isExceedingLengthLimitation(trimmed)) trimmed = trimmed.dropLast(1)
 
         val tweet = StatusUpdate(trimmed)
 
-        println("Dummy tweet:")
-        println(tweet)
+//        println("Dummy tweet:")
+//        println(tweet)
 
-
-//        val status = twitter.updateStatus(tweet)
-        //println(status)
+        val status = twitter.updateStatus(tweet)
+        println(status)
     }
 }
 

@@ -22,7 +22,7 @@ import java.io.InputStream
 /**
  * Web interface to the de.cvguy.fastai.catsvsdogs.game.
  */
-class KtorWebServerClient(
+class KtorGameClient(
         game: CatsVsDogsGame,
         port: Int = 8080
 ) {
