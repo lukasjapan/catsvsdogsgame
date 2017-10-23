@@ -63,3 +63,5 @@ dependencies {
     // tests
     testCompile "junit:junit:4.12"
 }
+
+mainClassName = "de.cvguy.fastai.catsvsdogs.CatsVsDogsKt"
