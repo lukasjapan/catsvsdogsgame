@@ -43,6 +43,9 @@ class TwitterGameClient(
             println(status)
             status ?: return
 
+            // Prevent duplicate entries
+            if(game.scoreBoard.entries.map { it.name }.contains(status.user.screenName)) return
+
             val profileURL       = URL(status.user.originalProfileImageURL)
             // val attachedImageURL = status.mediaEntities.find { it.type == "photo" }?.let { URL(it.mediaURL) } ?: return
 
